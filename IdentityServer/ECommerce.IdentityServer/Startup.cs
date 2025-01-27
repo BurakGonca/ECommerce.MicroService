@@ -28,6 +28,9 @@ namespace ECommerce.IdentityServer
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //bu methodla token alacagiz, IdentityServer mikroservisini koruma altına almak icin.
+            services.AddLocalApiAuthentication();
+
             services.AddControllersWithViews();
 
             //Sql Server baglantisi
@@ -82,6 +85,7 @@ namespace ECommerce.IdentityServer
 
             app.UseRouting();
             app.UseIdentityServer();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

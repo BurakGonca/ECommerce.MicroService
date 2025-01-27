@@ -1,7 +1,17 @@
 using ECommerce.Discount.Context;
 using ECommerce.Discount.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
+{
+    opt.Authority = builder.Configuration["IdentityServerUrl"]; //appsettings.json'a ekledim.
+    opt.Audience = "ResourceDiscount"; //discount mikroservisi kullanabilmesi icin IdentityServer config eslesmesi
+    opt.RequireHttpsMetadata = false; //https'i zorunluluktan cikardik
+});
+
 
 // Add services to the container.
 
@@ -27,6 +37,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
