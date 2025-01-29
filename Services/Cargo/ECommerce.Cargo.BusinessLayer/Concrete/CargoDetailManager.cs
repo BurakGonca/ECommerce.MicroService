@@ -24,9 +24,9 @@ namespace ECommerce.Cargo.BusinessLayer.Concrete
             _cargoDetailDal.Delete(id);
         }
 
-        public List<CargoDetail> TGellAll()
+        public List<CargoDetail> TGetAll()
         {
-            return _cargoDetailDal.GellAll();
+            return _cargoDetailDal.GetAll();
         }
 
         public CargoDetail TGetById(int id)

@@ -1,18 +1,20 @@
 ﻿using ECommerce.Cargo.BusinessLayer.Abstract;
 using ECommerce.Cargo.DtoLayer.CargoCompanyDtos;
 using ECommerce.Cargo.EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.Cargo.WebApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class CargoCompanyController : ControllerBase
+    public class CargoCompaniesController : ControllerBase
     {
         private readonly ICargoCompanyService _cargoCompanyService;
 
-        public CargoCompanyController(ICargoCompanyService cargoCompanyService)
+        public CargoCompaniesController(ICargoCompanyService cargoCompanyService)
         {
             _cargoCompanyService = cargoCompanyService;
         }
@@ -20,7 +22,7 @@ namespace ECommerce.Cargo.WebApi.Controllers
         [HttpGet]
         public IActionResult CargoCompanyList()
         {
-            var values = _cargoCompanyService.TGellAll();
+            var values = _cargoCompanyService.TGetAll();
             return Ok(values);
         }
 

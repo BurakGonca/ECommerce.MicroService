@@ -24,7 +24,7 @@ namespace ECommerce.Cargo.DataAccessLayer.Repositories
             _cargoContext.SaveChanges();
         }
 
-        public List<T> GellAll()
+        public List<T> GetAll()
         {
             return _cargoContext.Set<T>().ToList();
         }

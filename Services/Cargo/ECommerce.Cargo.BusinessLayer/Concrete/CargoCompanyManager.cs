@@ -23,9 +23,9 @@ namespace ECommerce.Cargo.BusinessLayer.Concrete
             _cargoCompanyDal.Delete(id);
         }
 
-        public List<CargoCompany> TGellAll()
+        public List<CargoCompany> TGetAll()
         {
-            return _cargoCompanyDal.GellAll();
+            return _cargoCompanyDal.GetAll();
         }
 
         public CargoCompany TGetById(int id)
@@ -40,7 +40,9 @@ namespace ECommerce.Cargo.BusinessLayer.Concrete
 
         public void TUpdate(CargoCompany entity)
         {
-            _cargoCompanyDal.Update(entity)
+            _cargoCompanyDal.Update(entity);
         }
+
+    
     }
 }

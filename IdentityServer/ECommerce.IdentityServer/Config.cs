@@ -75,6 +75,11 @@ namespace ECommerce.IdentityServer
                 Scopes= {"OrderFullPermission"}
             },
 
+            new ApiResource("ResourceCargo")
+            {
+                Scopes= {"CargoFullPermission"}
+            },
+
             new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
 
 
@@ -93,6 +98,7 @@ namespace ECommerce.IdentityServer
             new ApiScope("CatalogReadPermission","Reading Authority For Catalog Operations"),
             new ApiScope("DiscountFullPermission","Full Authority For Discount Operations"),
             new ApiScope("OrderFullPermission","Full Authority For Order Operations"),
+            new ApiScope("CargoFullPermission","Full Authority For Cargo Operations"),
             new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
 
         };
@@ -127,7 +133,7 @@ namespace ECommerce.IdentityServer
                 ClientName="E-Commerce Admin User",
                 AllowedGrantTypes = GrantTypes.ClientCredentials,
                 ClientSecrets = {new Secret("ecommercesecret".Sha256())},
-                AllowedScopes = {"CatalogReadPermission", "CatalogFullPermission", "DiscountFullPermission", "OrderFullPermission",
+                AllowedScopes = {"CatalogReadPermission", "CatalogFullPermission", "DiscountFullPermission", "OrderFullPermission","CargoFullPermission",
 
                     IdentityServerConstants.LocalApi.ScopeName,
                     IdentityServerConstants.StandardScopes.Email,
