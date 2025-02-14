@@ -80,11 +80,13 @@
 			</div>
 		</div>
 
-		
 
-		@RenderBody()
+
 	</header>
 
+	
+		@RenderBody()
+	
 
 
 	<!-- Cart -->
@@ -171,6 +173,8 @@
 			</div>
 		</div>
 	</div>
+
+
 
 
 	<!-- Back to top -->
@@ -337,7 +341,8 @@
 		</div>
 	</div>
 
-	
+	@* Footer *@
+	@await Component.InvokeAsync("_FooterUILayoutComponentPartial")
 
 
 	<!--===============================================================================================-->
@@ -442,6 +447,61 @@
 	<!--===============================================================================================-->
 	<script src="~/cozastore-master/js/main.js"></script>
 
+
+	@* ekranı yukarı kaydıran ok icin manuel js islemleri *@
+	<script>
+
+
+		let mybutton = document.getElementById("myBtn");
+
+
+		window.onscroll = function () {
+			scrollFunction();
+		};
+
+		function scrollFunction() {
+			if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+				mybutton.style.display = "block";
+			} else {
+				mybutton.style.display = "none";
+			}
+		}
+
+		// Butona tıklanınca yukarı kaydırır
+		mybutton.addEventListener("click", function () {
+			window.scrollTo({ top: 0, behavior: "smooth" });
+		});
+
+
+	</script>
+
+	@* ekranı yukarı kaydıran ok icin manuel css *@
+	<style>
+		.btn-back-to-top {
+			position: fixed;
+			bottom: 40px;
+			right: 40px;
+			display: none;
+			width: 40px;
+			height: 40px;
+			background-color: #333;
+			color: white;
+			text-align: center;
+			line-height: 40px;
+			border-radius: 50%;
+			cursor: pointer;
+			z-index: 99;
+		}
+
+		.symbol-btn-back-to-top i {
+			font-size: 24px;
+		}
+
+		.btn-back-to-top:hover {
+			background-color: #555;
+		}
+
+	</style>
 
 
 

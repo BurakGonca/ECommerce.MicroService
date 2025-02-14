@@ -1,12 +1,29 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/UILayout/_UILayout.cshtml";
+﻿@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/UILayout/_UILayout.cshtml";
 }
 
+@* slider *@
 @await Component.InvokeAsync("_CarouselDefaultComponentPartial")
 
+@* kategoriler *@
 @await Html.PartialAsync("_BannerPartial")
+
+@* öne cikan ürünler *@
+@await Component.InvokeAsync("_FeatureProductsDefaultComponentPartial")
+
+@* markalar kısmı için slider kütüphanesi kullandıgım icin, template ile aynı hizada olması icin container sınıfının icine aldım. *@
+<div class="container">
+	@* satıcılar/markalar *@
+	@await Component.InvokeAsync("_VendorDefaultComponentPartial")
+</div>
+
+
+
+
+
+
+
 
 
 
