@@ -1,0 +1,60 @@
+﻿<!-- Modal1 -->
+<div class="wrap-modal1 js-modal1 p-t-60 p-b-20">
+	<div class="overlay-modal1 js-hide-modal1"></div>
+
+	<div class="container">
+		<div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
+			<button class="how-pos3 hov3 trans-04 js-hide-modal1">
+				<img src="~/cozastore-master/images/icons/icon-close.png" alt="CLOSE">
+			</button>
+
+			<div class="row">
+
+				@* ürün detay modal'ındaki görsel slider *@
+				@await Component.InvokeAsync("_ProductDetailImageSliderComponentPartial")
+
+				@* ürün detay modal'ındaki isim,fiyat, beden, renk gibi secenekler kısmı *@
+				@await Component.InvokeAsync("_ProductDetailNameAndOtherInfo")
+
+			</div>
+
+			@* description,information, reviews *@
+			<div class="bor10 m-t-50 p-t-43 p-b-40">
+				<!-- Tab01 -->
+				<div class="tab01">
+
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs" role="tablist">
+						<li class="nav-item p-b-10">
+							<a class="nav-link active" data-toggle="tab" href="#description" role="tab">Description</a>
+						</li>
+
+						<li class="nav-item p-b-10">
+							<a class="nav-link" data-toggle="tab" href="#information" role="tab">Additional information</a>
+						</li>
+
+						<li class="nav-item p-b-10">
+							<a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews (1)</a>
+						</li>
+					</ul>
+
+					<!-- Tab panes -->
+					<div class="tab-content p-t-43">
+
+						<!-- description -->
+						@await Component.InvokeAsync("_ProductDetailDescriptionComponentPartial")
+
+						<!-- information -->
+						@await Component.InvokeAsync("_ProductDetailInformationComponentPartial")
+
+						<!-- reviews -->
+						@await Component.InvokeAsync("_ProductDetailReviewsComponentPartial")
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
