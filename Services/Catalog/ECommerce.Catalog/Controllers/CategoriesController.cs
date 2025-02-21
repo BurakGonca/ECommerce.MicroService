@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.Catalog.Controllers
 {
-    [Authorize]
+    //[Authorize] //webUI deneme yapiyorum daha sonra acacagim
     [Route("api/[controller]")]
     [ApiController]
     public class CategoriesController : ControllerBase

@@ -1,8 +1,9 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
-    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+﻿@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
 }
+
+@model List<ECommerce.DtoLayer.CatalogDtos.CategoryDtos.ResultCategoryDto>
 
 <section class="content container-fluid">
 	<div class="row">
@@ -23,15 +24,20 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<th scope="row">1</th>
-								<td>Mark</td>
-								<td>Otto</td>
-								<td>mdo</td>
-								<td>mdo</td>
-							</tr>
+							@foreach (var item in Model)
+							{
+								<tr>
+									<th scope="row">@item.CategoryID</th>
+									<td>@item.CategoryName</td>
+									<td><a href="#" class="btn btn-success">Ürünler</a></td>
+									<td><a href="/Admin/Category/DeleteCategory/@item.CategoryID"  class="btn btn-danger">Sil</a></td>
+									<td><a href="/Admin/Category/UpdateCategory/@item.CategoryID" class="btn btn-warning">Güncelle</a></td>
+								</tr>
+							}
+
 						</tbody>
 					</table>
+					<a href="/Admin/Category/CreateCategory/" class="btn btn-primary">Yeni Kategori</a>
 				</div>
 			</div>
 		</div>
