@@ -16,10 +16,8 @@
 				<h4>Kategori Güncelleme</h4>
 				<div class="bs-example" data-example-id="bordered-table">
 					<form method="post">
-						<label>Kategori Id</label>
-						<input type="text" readonly class="form-control" asp-for="CategoryID" />
-						<br />
-						<label>Kategori Adı</label>
+						
+						<input type="hidden" asp-for="CategoryID" />		
 						<input type="text" class="form-control" asp-for="CategoryName" />
 						<br />
 						<button class="btn btn-primary">Güncelle</button>
