@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ECommerce.Catalog.Dtos.CategoryDtos;
+using ECommerce.Catalog.Dtos.FeatureSliderDtos;
 using ECommerce.Catalog.Dtos.ProductDetailDtos;
 using ECommerce.Catalog.Dtos.ProductDtos;
 using ECommerce.Catalog.Dtos.ProductImageDtos;
@@ -20,8 +21,9 @@ namespace ECommerce.Catalog.Mapping
             CreateMap<Product,CreateProductDto>().ReverseMap();
             CreateMap<Product,UpdateProductDto>().ReverseMap();
             CreateMap<Product,GetByIdProductDto>().ReverseMap();
+			CreateMap<Product, ResultProductsWithCategoryDto>().ReverseMap();
 
-            CreateMap<ProductDetail,ResultProductDetailDto>().ReverseMap();
+			CreateMap<ProductDetail,ResultProductDetailDto>().ReverseMap();
             CreateMap<ProductDetail,CreateProductDetailDto>().ReverseMap();
             CreateMap<ProductDetail,UpdateProductDetailDto>().ReverseMap();
             CreateMap<ProductDetail,GetByIdProductDetailDto>().ReverseMap();
@@ -31,8 +33,13 @@ namespace ECommerce.Catalog.Mapping
             CreateMap<ProductImage,UpdateProductImageDto>().ReverseMap();
             CreateMap<ProductImage,GetByIdProductImageDto>().ReverseMap();
 
+			CreateMap<FeatureSlider, ResultFeatureSliderDto>().ReverseMap();
+			CreateMap<FeatureSlider, CreateFeatureSliderDto>().ReverseMap();
+			CreateMap<FeatureSlider, UpdateFeatureSliderDto>().ReverseMap();
+			CreateMap<FeatureSlider, GetByIdFeatureSliderDto>().ReverseMap();
 
-        }
+
+		}
 
 
 

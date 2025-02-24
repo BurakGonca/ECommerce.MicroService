@@ -1,83 +1,44 @@
-﻿<!-- Slider -->
+﻿@model List<ResultFeatureSliderDto>
+
+@{
+	// Animasyon efektleri
+	var animationEffects = new List<string> { "fadeInDown", "rollIn", "rotateInDownLeft" };
+	var animationEffects2 = new List<string> { "fadeInUp", "lightSpeedIn", "rotateInUpRight" };
+	var animationEffects3 = new List<string> { "zoomIn", "slideInUp", "rotateIn" };
+	int index = 0;
+}
+
+<!-- Slider -->
 <section class="section-slide">
 	<div class="wrap-slick1 rs1-slick1">
 		<div class="slick1">
-			<div class="item-slick1" style="background-image: url('/cozastore-master/images/slide-03.jpg');">
-				<div class="container h-full">
-					<div class="flex-col-l-m h-full p-t-100 p-b-30">
-						<div class="layer-slick1 animated visible-false" data-appear="fadeInDown" data-delay="0">
-							<span class="ltext-202 cl2 respon2">
-								2025 Erkek Koleksiyonu
-							</span>
-						</div>
+			@foreach (var item in Model.Where(x => x.Status == false)) //sonra burayı true'ya cekeceğim
+			{
+				<div class="item-slick1" style="background-image: url('@item.ImageUrl');">
+					<div class="container h-full">
+						<div class="flex-col-l-m h-full p-t-100 p-b-30">
+							<div class="layer-slick1 animated visible-false" data-appear="@animationEffects[index % animationEffects.Count]" data-delay="0">
+								<span class="ltext-202 cl2 respon2">
+									@item.Title
+								</span>
+							</div>
 
-						<div class="layer-slick1 animated visible-false" data-appear="fadeInUp" data-delay="800">
-							<h2 class="ltext-104 cl2 p-t-19 p-b-43 respon1">
-								Yeni Sezon Ürünleri
-							</h2>
-						</div>
+							<div class="layer-slick1 animated visible-false" data-appear="@animationEffects2[index % animationEffects2.Count]" data-delay="800">
+								<h2 class="ltext-104 cl2 p-t-19 p-b-43 respon1">
+									@item.Description
+								</h2>
+							</div>
 
-						<div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
-							<a href="product.html" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
-								Şimdi Keşfet →
-							</a>
+							<div class="layer-slick1 animated visible-false" data-appear="@animationEffects3[index % animationEffects3.Count]" data-delay="1600">
+								<a href="product.html" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+									Şimdi Keşfet →
+								</a>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-
-			<div class="item-slick1" style="background-image: url('/cozastore-master/images/slide-02.jpg');">
-				<div class="container h-full">
-					<div class="flex-col-l-m h-full p-t-100 p-b-30">
-						<div class="layer-slick1 animated visible-false" data-appear="rollIn" data-delay="0">
-							<span class="ltext-202 cl2 respon2">
-								Erkek Yeni Sezon
-							</span>
-						</div>
-
-						<div class="layer-slick1 animated visible-false" data-appear="lightSpeedIn" data-delay="800">
-							<h2 class="ltext-104 cl2 p-t-19 p-b-43 respon1">
-								Kabanlar
-							</h2>
-						</div>
-
-						<div class="layer-slick1 animated visible-false" data-appear="slideInUp" data-delay="1600">
-							<a href="product.html" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
-								Alışverişe Başla →
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="item-slick1" style="background-image: url('/cozastore-master/images/slide-04.jpg');">
-				<div class="container h-full">
-					<div class="flex-col-l-m h-full p-t-100 p-b-30">
-						<div class="layer-slick1 animated visible-false" data-appear="rotateInDownLeft" data-delay="0">
-							<span class="ltext-202 cl2 respon2">
-								2025 Kadın Koleksiyonu
-							</span>
-						</div>
-
-						<div class="layer-slick1 animated visible-false" data-appear="rotateInUpRight" data-delay="800">
-							<h2 class="ltext-104 cl2 p-t-19 p-b-43 respon1">
-								Yeni Sezon Modası
-							</h2>
-						</div>
-
-						<div class="layer-slick1 animated visible-false" data-appear="rotateIn" data-delay="1600">
-							<a href="product.html" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
-								Hemen İncele →
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
+				index++; // Sonraki slider için indexi artırır
+			}
 		</div>
 	</div>
-</section>
-
-
-
-
-						
+</section> 

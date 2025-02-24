@@ -15,8 +15,9 @@ namespace ECommerce.Catalog.Entities
         public string ProductDescription { get; set; }
 
 
-        //relationships
-        public string CategoryId { get; set; }
+		//relationships
+		[BsonRepresentation(BsonType.ObjectId)]
+		public string CategoryId { get; set; }
 
         [BsonIgnore]
         public Category Category { get; set; }

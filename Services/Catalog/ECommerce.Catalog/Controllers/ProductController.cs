@@ -55,5 +55,12 @@ namespace ECommerce.Catalog.Controllers
         }
 
 
-    }
+		[HttpGet("ProductListWithCategory")]
+		public async Task<IActionResult> ProductListWithCategory()
+		{
+			var values = await _productService.GetProductsWithCategoryAsync();
+			return Ok(values);
+		}
+
+	}
 }
