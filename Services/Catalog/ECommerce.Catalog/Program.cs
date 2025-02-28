@@ -3,6 +3,7 @@ using ECommerce.Catalog.Services.FeatureSliderServices;
 using ECommerce.Catalog.Services.ProductDetailServices;
 using ECommerce.Catalog.Services.ProductImageServices;
 using ECommerce.Catalog.Services.ProductServices;
+using ECommerce.Catalog.Services.SpecialOfferServices;
 using ECommerce.Catalog.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
@@ -27,6 +28,7 @@ builder.Services.AddScoped<IProductService,ProductService>();
 builder.Services.AddScoped<IProductDetailService,ProductDetailService>();    
 builder.Services.AddScoped<IProductImageService,ProductImageService>();
 builder.Services.AddScoped<IFeatureSliderService,FeatureSliderService>();
+builder.Services.AddScoped<ISpecialOfferService,SpecialOfferService>();
 
 //Automappper konfigürasyonu
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
