@@ -7,7 +7,9 @@
 @await Component.InvokeAsync("_CarouselDefaultComponentPartial")
 
 @* kategoriler *@
-@await Html.PartialAsync("_BannerPartial")
+@* @await Html.PartialAsync("_BannerPartial") *@
+@await Component.InvokeAsync("_CategoriesDefaultComponentPartial")
+
 
 @* öne cikan ürünler *@
 @await Component.InvokeAsync("_FeatureProductsDefaultComponentPartial")
