@@ -1,3 +1,4 @@
+using ECommerce.Catalog.Services.BrandServices;
 using ECommerce.Catalog.Services.CategoryServices;
 using ECommerce.Catalog.Services.FeatureSliderServices;
 using ECommerce.Catalog.Services.ProductDetailServices;
@@ -22,13 +23,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     opt.RequireHttpsMetadata = false; //https'i zorunluluktan cikardik
 });
 
-//DI konfigürasyonlari
+//DI konfigürasyonlari 
 builder.Services.AddScoped<ICategoryService,CategoryService>();    
 builder.Services.AddScoped<IProductService,ProductService>();    
 builder.Services.AddScoped<IProductDetailService,ProductDetailService>();    
 builder.Services.AddScoped<IProductImageService,ProductImageService>();
 builder.Services.AddScoped<IFeatureSliderService,FeatureSliderService>();
 builder.Services.AddScoped<ISpecialOfferService,SpecialOfferService>();
+builder.Services.AddScoped<IBrandService,BrandService>();
 
 //Automappper konfigürasyonu
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());

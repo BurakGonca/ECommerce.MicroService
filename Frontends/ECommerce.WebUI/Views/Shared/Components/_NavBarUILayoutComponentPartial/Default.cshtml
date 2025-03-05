@@ -7,6 +7,11 @@
 <!-- Menu desktop -->
 <div class="menu-desktop">
 	<ul class="main-menu">
+
+		<li>
+			<a asp-controller="Default" asp-action="Index">Anasayfa</a>
+		</li>
+
 		<li class="active-menu">
 			<a href="~/cozastore-master/index.html">Kategoriler</a>
 			<ul class="sub-menu">
@@ -17,11 +22,7 @@
 		</li>
 
 		<li>
-			<a href="~/cozastore-master/product.html">Anasayfa</a>
-		</li>
-
-		<li>
-			<a href="~/cozastore-master/blog.html">Ürünler</a>
+			<a asp-controller="Product" asp-action="Index">Ürünler</a>
 		</li>
 
 		<li>

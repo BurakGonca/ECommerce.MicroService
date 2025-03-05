@@ -8,21 +8,15 @@
 <!-- Slick Slider JS -->
 <script src="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.min.js"></script>
 
+@model List<ResultBrandDto>
 
 <section class="brand-slider">
     <div class="center">
-        <div><img src="~/cozastore-master/images/vendor/avva.jpg" alt="Marka 1"></div>
-        <div><img src="~/cozastore-master/images/vendor/bershka.jpg" alt="Marka 1"></div>
-        <div><img src="~/cozastore-master/images/vendor/beymen.jpg" alt="Marka 1"></div>
-        <div><img src="~/cozastore-master/images/vendor/beymenclub.png" alt="Marka 1"></div>
-        <div><img src="~/cozastore-master/images/vendor/calvinklein.jpg" alt="Marka 1"></div>
-        <div><img src="~/cozastore-master/images/vendor/Columbia.jpg" alt="Marka 1"></div>
-        <div><img src="~/cozastore-master/images/vendor/damat.png" alt="Marka 1"></div>
-        <div><img src="~/cozastore-master/images/vendor/dockers.png" alt="Marka 1"></div>
-        <div><img src="~/cozastore-master/images/vendor/guess.png" alt="Marka 1"></div>
-        <div><img src="~/cozastore-master/images/vendor/ipekyol.jpg" alt="Marka 1"></div>
-        <div><img src="~/cozastore-master/images/vendor/yargıcı.jpg" alt="Marka 1"></div>
-        <div><img src="~/cozastore-master/images/vendor/zara.jpg" alt="Marka 1"></div>
+
+        @foreach (var item in Model)
+        {
+            <div><img src="@item.ImageUrl" alt="@item.BrandName"></div>
+        }
         
     </div>
 </section>
@@ -37,7 +31,7 @@
             centerPadding: '20px',
             slidesToShow: 8,      // Aynı anda 8 logo göster
             autoplay: true,       // Otomatik kaydırma
-            autoplaySpeed: 1500,  // 1.5 saniyede bir geçiş
+            autoplaySpeed: 1200,  // 1.2 saniyede bir geçiş
             infinite: true,       // Sonsuz döngü
             dots: false,          // Nokta gösterme
             arrows: true,         // Ok butonları açık

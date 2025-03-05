@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ECommerce.Catalog.Dtos.BrandDtos;
 using ECommerce.Catalog.Dtos.CategoryDtos;
 using ECommerce.Catalog.Dtos.FeatureSliderDtos;
 using ECommerce.Catalog.Dtos.ProductDetailDtos;
@@ -43,6 +44,13 @@ namespace ECommerce.Catalog.Mapping
 			CreateMap<SpecialOffer, CreateSpecialOfferDto>().ReverseMap();
 			CreateMap<SpecialOffer, UpdateSpecialOfferDto>().ReverseMap();
 			CreateMap<SpecialOffer, GetByIdSpecialOfferDto>().ReverseMap();
+
+			CreateMap<Brand, ResultBrandDto>().ReverseMap();
+			CreateMap<Brand, CreateBrandDto>().ReverseMap();
+			CreateMap<Brand, UpdateBrandDto>().ReverseMap();
+			CreateMap<Brand, GetByIdBrandDto>().ReverseMap();
+
+
 		}
 
 
