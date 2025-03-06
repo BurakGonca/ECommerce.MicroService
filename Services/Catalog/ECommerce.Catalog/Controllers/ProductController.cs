@@ -62,5 +62,18 @@ namespace ECommerce.Catalog.Controllers
 			return Ok(values);
 		}
 
+        /// <summary>
+        /// Kategoriye göre filtre ederek product getiren get methodudur.
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
+		[HttpGet("GetProductsWithCategoryByCategoryId")]
+		public async Task<IActionResult> GetProductsWithCategoryByCategoryId(string categoryId)
+		{
+			var values = await _productService.GetProductsWithCategoryByCategoryIdAsync(categoryId);
+			return Ok(values);
+		}
+
+
 	}
 }

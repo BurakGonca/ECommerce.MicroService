@@ -13,6 +13,10 @@ namespace ECommerce.WebUI.ViewComponents.DefaultViewComponents
 			_httpClientFactory = httpClientFactory;
 		}
 		
+		/// <summary>
+		/// Son eklenen 8 ürüne göre filtreleyerek getiriyor
+		/// </summary>
+		/// <returns></returns>
 		public async Task<IViewComponentResult> InvokeAsync()
 		{
 
@@ -23,7 +27,8 @@ namespace ECommerce.WebUI.ViewComponents.DefaultViewComponents
 			if (responseMessage.IsSuccessStatusCode)
 			{
 				var jsonData = await responseMessage.Content.ReadAsStringAsync();
-				var values = JsonConvert.DeserializeObject<List<ResultProductWithCategoryDto>>(jsonData);
+				var values = JsonConvert.DeserializeObject<List<ResultProductWithCategoryDto>>(jsonData).TakeLast(8).ToList();
+				
 				return View(values);
 			}
 			return View();

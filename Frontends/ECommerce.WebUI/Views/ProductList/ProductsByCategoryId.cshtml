@@ -1,4 +1,10 @@
-﻿@model List<ResultProductWithCategoryDto>
+﻿
+@{
+    ViewData["Title"] = "ProductsByCategoryId";
+	Layout = "~/Views/UILayout/_UILayout.cshtml";
+}
+
+@model List<ResultProductWithCategoryDto>
 
 
 
@@ -7,22 +13,13 @@
 <section class="bg0 p-t-23 p-b-140">
 	<div class="container">
 
-		@* öne cikan ürünler baslik *@
-		<div class="p-b-10">
-			<h3 class="ltext-103 cl5">
-				Öne Çıkan Ürünler
-			</h3>
-		</div>
-
 
 		@* kategori basliklari *@
 
 		<div class="flex-w flex-sb-m p-b-52">
 
 			<div class="flex-w flex-l-m filter-tope-group m-tb-10">
-				<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
-					Tüm Ürünler
-				</button>
+				
 
 				@foreach (var category in Model.Select(x => x.Category.CategoryName).Distinct())
 				{
@@ -255,10 +252,10 @@
 			</div>
 		</div>
 
-		
+
 		@* ürünler *@
 
- 		<div class="row isotope-grid">
+		<div class="row isotope-grid">
 
 			@foreach (var item in Model)
 			{
@@ -272,13 +269,13 @@
 								Ürüne Git
 							</a>
 						</div>
-						
+
 						<div class="block2-txt flex-w flex-t p-t-14">
 							<div class="block2-txt-child1 flex-col-l ">
 								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
 									@item.ProductName
 								</a>
-								
+
 								<span class="stext-105 cl3">
 									@item.ProductPrice TL
 								</span>
@@ -296,9 +293,9 @@
 				</div>
 			}
 
-			
 
-		</div> 
+
+		</div>
 
 
 
@@ -312,3 +309,4 @@
 
 	</div>
 </section>
+

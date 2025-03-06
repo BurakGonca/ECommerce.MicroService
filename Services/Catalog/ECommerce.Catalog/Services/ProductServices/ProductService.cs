@@ -70,5 +70,24 @@ namespace ECommerce.Catalog.Services.ProductServices
 
 		}
 
+        /// <summary>
+        /// Ürünleri kategoriye göre filtre ederek getiren methoddur.
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+		public async Task<List<ResultProductsWithCategoryDto>> GetProductsWithCategoryByCategoryIdAsync(string categoryId)
+		{
+			var values = await _productCollection.Find(p => p.CategoryId==categoryId).ToListAsync();
+			foreach (var item in values)
+			{
+				item.Category = await _categoryCollection.Find<Category>(c => c.CategoryID == item.CategoryId).FirstAsync();
+			}
+
+			return _mapper.Map<List<ResultProductsWithCategoryDto>>(values);
+		}
+
+
+
 	}
 }

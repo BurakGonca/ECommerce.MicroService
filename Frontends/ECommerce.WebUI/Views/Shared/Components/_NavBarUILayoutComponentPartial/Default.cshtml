@@ -1,6 +1,8 @@
-﻿
+﻿@model List<ResultCategoryDto>
+
+
 <!-- Logo desktop -->
-<a href="#" class="logo">
+<a asp-controller="Default" asp-action="Index" class="logo">
 	<img src="~/cozastore-master/images/icons/logo-01.png" alt="IMG-LOGO">
 </a>
 
@@ -8,21 +10,24 @@
 <div class="menu-desktop">
 	<ul class="main-menu">
 
-		<li>
+		<li @* class="active-menu" *@>
 			<a asp-controller="Default" asp-action="Index">Anasayfa</a>
 		</li>
 
-		<li class="active-menu">
-			<a href="~/cozastore-master/index.html">Kategoriler</a>
+		<li >
+			<a >Kategoriler</a>
 			<ul class="sub-menu">
-				<li><a href="~/cozastore-master/index.html">Kategori 1</a></li>
-				<li><a href="~/cozastore-master/home-02.html">Kategori 2</a></li>
-				<li><a href="~/cozastore-master/home-03.html">Kategori 3</a></li>
+
+				@foreach (var item in Model)
+				{
+					<li><a asp-controller="ProductList" asp-action="ProductsByCategoryId" asp-route-categoryId="@item.CategoryID.ToString()">@item.CategoryName</a></li>
+				}
+				
 			</ul>
 		</li>
 
 		<li>
-			<a asp-controller="Product" asp-action="Index">Ürünler</a>
+			<a asp-controller="ProductList" asp-action="Index">Ürünler</a>
 		</li>
 
 		<li>
