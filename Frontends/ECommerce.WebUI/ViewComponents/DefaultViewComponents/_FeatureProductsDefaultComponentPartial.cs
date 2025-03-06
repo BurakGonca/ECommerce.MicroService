@@ -24,27 +24,12 @@ namespace ECommerce.WebUI.ViewComponents.DefaultViewComponents
 			{
 				var jsonData = await responseMessage.Content.ReadAsStringAsync();
 				var values = JsonConvert.DeserializeObject<List<ResultProductWithCategoryDto>>(jsonData);
-				foreach (var product in values)
-				{
-					product.Category.CategoryName = GetCategoryClass(product.Category?.CategoryName ?? "others");
-				}
 				return View(values);
 			}
 			return View();
 		}
 
-		private static string GetCategoryClass(string categoryName)
-		{
-			return categoryName.ToLower() switch
-			{
-				"kadın" => "women",
-				"erkek" => "men",
-				"çantalar" => "bag",
-				"ayakkabılar" => "shoes",
-				"saatler" => "watches",
-				_ => "others"
-			};
-		}
+		
 
 
 	}
