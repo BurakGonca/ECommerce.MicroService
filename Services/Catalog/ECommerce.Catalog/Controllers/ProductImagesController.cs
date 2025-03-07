@@ -30,8 +30,15 @@ namespace ECommerce.Catalog.Controllers
             return Ok(value);
         }
 
+		[HttpGet("ProductImagesByProductId")]
+		public async Task<IActionResult> ProductImagesByProductId(string id)
+		{
+			var values = await _productImageService.GetByProductIdProductImageAsync(id);
+			return Ok(values);
+		}
 
-        [HttpPost]
+
+		[HttpPost]
         public async Task<IActionResult> CreateProductImage(CreateProductImageDto createProductImageDto)
         {
             await _productImageService.CreateProductImageAsync(createProductImageDto);

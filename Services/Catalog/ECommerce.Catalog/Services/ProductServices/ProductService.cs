@@ -41,10 +41,16 @@ namespace ECommerce.Catalog.Services.ProductServices
             return _mapper.Map<List<ResultProductDto>>(values);
         }
 
+        /// <summary>
+        /// Kategorisi ile birlikte getirir.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<GetByIdProductDto> GetByIdProductAsync(string id)
         {
             var value = await _productCollection.Find<Product>(p=>p.ProductID == id).FirstOrDefaultAsync();
-            return _mapper.Map<GetByIdProductDto>(value);
+            value.Category = await _categoryCollection.Find<Category>(c => c.CategoryID == value.CategoryId).FirstAsync();
+			return _mapper.Map<GetByIdProductDto>(value);
         }
 
 

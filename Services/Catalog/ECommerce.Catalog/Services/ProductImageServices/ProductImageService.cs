@@ -47,11 +47,28 @@ namespace ECommerce.Catalog.Services.ProductImageServices
             return _mapper.Map<GetByIdProductImageDto>(value);
         }
 
-        public async Task UpdateProductImageAsync(UpdateProductImageDto updateProductImageDto)
+		public async Task UpdateProductImageAsync(UpdateProductImageDto updateProductImageDto)
         {
             var value = _mapper.Map<ProductImage>(updateProductImageDto);
             await _productImageCollection.FindOneAndReplaceAsync(c => c.ProductImageId == updateProductImageDto.ProductImageId, value);
         }
+
+        /// <summary>
+        /// ProductID'sine göre ProductImage'leri getiren method.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+		public async Task<GetByIdProductImageDto> GetByProductIdProductImageAsync(string id)
+		{
+			var value = await _productImageCollection.Find(c => c.ProductId == id).FirstOrDefaultAsync();
+
+			return _mapper.Map<GetByIdProductImageDto>(value);
+		}
+
+
+        
+
+
 
     }
 }

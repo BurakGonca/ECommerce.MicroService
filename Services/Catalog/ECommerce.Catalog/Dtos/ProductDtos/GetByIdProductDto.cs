@@ -1,4 +1,6 @@
-﻿namespace ECommerce.Catalog.Dtos.ProductDtos
+﻿using ECommerce.Catalog.Dtos.CategoryDtos;
+
+namespace ECommerce.Catalog.Dtos.ProductDtos
 {
     public class GetByIdProductDto
     {
@@ -12,5 +14,6 @@
 
         //relationships
         public string CategoryId { get; set; }
-    }
+		public ResultCategoryDto Category { get; set; }
+	}
 }
