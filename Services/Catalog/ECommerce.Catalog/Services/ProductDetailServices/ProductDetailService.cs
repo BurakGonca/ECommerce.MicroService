@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ECommerce.Catalog.Dtos.ProductDetailDtos;
+using ECommerce.Catalog.Dtos.ProductImageDtos;
 using ECommerce.Catalog.Entities;
 using ECommerce.Catalog.Settings;
 using MongoDB.Driver;
@@ -52,7 +53,19 @@ namespace ECommerce.Catalog.Services.ProductDetailServices
             await _productDetailCollection.FindOneAndReplaceAsync(p => p.ProductDetailId == updateProductDetailDto.ProductDetailId, value);
         }
 
+		/// <summary>
+		/// ProductID'sine göre ProductDetail'leri getiren method.
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		public async Task<GetByIdProductDetailDto> GetByProductIdProductDetailAsync(string id)
+		{
+			var value = await _productDetailCollection.Find(c => c.ProductId == id).FirstOrDefaultAsync();
+
+			return _mapper.Map<GetByIdProductDetailDto>(value);
+		}
 
 
-    }
+
+	}
 }

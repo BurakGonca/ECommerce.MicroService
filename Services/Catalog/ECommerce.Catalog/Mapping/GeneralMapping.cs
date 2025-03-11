@@ -55,8 +55,11 @@ namespace ECommerce.Catalog.Mapping
 			CreateMap<ProductImage, UpdateProductImageDto>().ReverseMap();
 			CreateMap<ProductImage, GetByIdProductImageDto>().ReverseMap();
 
-
-		}
+            CreateMap<ProductDetail, ResultProductDetailDto>().ReverseMap();
+            CreateMap<ProductDetail, CreateProductDetailDto>().ReverseMap();
+            CreateMap<ProductDetail, UpdateProductDetailDto>().ReverseMap();
+            CreateMap<ProductDetail, GetByIdProductDetailDto>().ReverseMap();
+        }
 
 
 

@@ -23,6 +23,7 @@ namespace ECommerce.Catalog.Controllers
             return Ok(values);
         }
 
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProductDetailById(string id)
         {
@@ -30,8 +31,15 @@ namespace ECommerce.Catalog.Controllers
             return Ok(value);
         }
 
+		[HttpGet("ProductDetailsByProductId")]
+		public async Task<IActionResult> ProductDetailsByProductId(string id)
+		{
+			var values = await _productDetailService.GetByProductIdProductDetailAsync(id);
+			return Ok(values);
+		}
 
-        [HttpPost]
+
+		[HttpPost]
         public async Task<IActionResult> CreateProductDetail(CreateProductDetailDto createProductDetailDto)
         {
             await _productDetailService.CreateProductDetailAsync(createProductDetailDto);
