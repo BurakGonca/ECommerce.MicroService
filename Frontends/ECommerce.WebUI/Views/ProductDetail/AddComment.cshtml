@@ -1,0 +1,77 @@
+﻿<!-- Add review -->
+<form class="w-full" method="post" asp-action="AddComment" asp-controller="ProductDetail">
+	<h5 class="mtext-108 cl2 p-b-7">
+		Yorum Ekleyin
+	</h5>
+
+	<p class="stext-102 cl6">
+		Yorumunuzun geçerli olması için aşağıdaki bilgileri eksiksiz giriniz.
+	</p>
+
+	<div class="flex-w flex-m p-t-50 p-b-23">
+		<span class="stext-102 cl3 m-r-16">
+			Puanınız
+		</span>
+
+		<span class="wrap-rating fs-18 cl11 pointer" id="rating-container">
+			<i class="item-rating pointer zmdi zmdi-star-outline" data-value="1"></i>
+			<i class="item-rating pointer zmdi zmdi-star-outline" data-value="2"></i>
+			<i class="item-rating pointer zmdi zmdi-star-outline" data-value="3"></i>
+			<i class="item-rating pointer zmdi zmdi-star-outline" data-value="4"></i>
+			<i class="item-rating pointer zmdi zmdi-star-outline" data-value="5"></i>
+			<input class="dis-none" type="number" name="Rating" id="rating" value="1">
+		</span>
+
+	</div>
+
+	<div class="row p-b-25">
+
+
+		<div class="col-sm-6 p-b-5">
+			<label class="stext-102 cl3" for="name">Adınız Soyadınız</label>
+			<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name" type="text" name="NameSurname">
+		</div>
+
+		<div class="col-sm-6 p-b-5">
+			<label class="stext-102 cl3" for="email">Email</label>
+			<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email" type="text" name="Email">
+		</div>
+
+		<div class="col-12 p-b-5">
+			<label class="stext-102 cl3" for="review">Yorumunuz</label>
+			<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" name="CommentDetail"></textarea>
+		</div>
+
+	</div>
+
+	<input type="hidden" name="ProductId" value="@ViewBag.Id" />
+
+	<button class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
+		Kaydet
+	</button>
+</form>
+
+
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		const stars = document.querySelectorAll(".item-rating");
+		const ratingInput = document.getElementById("rating");
+
+		stars.forEach(star => {
+			star.addEventListener("click", function () {
+				const value = this.getAttribute("data-value");
+				ratingInput.value = value;
+
+				// Tüm yıldızları boşalt
+				stars.forEach(s => s.classList.remove("zmdi-star", "cl11"));
+				stars.forEach(s => s.classList.add("zmdi-star-outline"));
+
+				// Seçili yıldızları doldur
+				for (let i = 0; i < value; i++) {
+					stars[i].classList.remove("zmdi-star-outline");
+					stars[i].classList.add("zmdi-star", "cl11");
+				}
+			});
+		});
+	});
+</script>

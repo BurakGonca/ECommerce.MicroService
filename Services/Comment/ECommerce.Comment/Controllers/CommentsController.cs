@@ -31,6 +31,14 @@ namespace ECommerce.Comment.Controllers
 			return Ok(value);
 		}
 
+		[HttpGet("CommentListByProductId")]
+		public async Task<IActionResult> CommentListByProductId(string id)
+		{
+			var values = await _commentService.GetAllCommentAsync();
+			var comments = values.Where(c=>c.ProductId == id).ToList();
+			return Ok(comments);
+		}
+
 
 		[HttpPost]
 		public async Task<IActionResult> CreateComment(CreateCommentDto createCommentDto)

@@ -14,7 +14,7 @@ namespace ECommerce.DtoLayer.CommentDtos.UserCommentDtos
 		public string CommentDetail { get; set; }
 		public int Rating { get; set; }
 		public DateTime CreatedDate { get; set; } = DateTime.Now;
-		public bool Status { get; set; }
+		public bool Status { get; set; } = false;
 
 
 		//relationship
