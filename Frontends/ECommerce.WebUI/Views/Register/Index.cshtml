@@ -1,0 +1,150 @@
+﻿@{
+	ViewData["Title"] = "Register";
+	Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>E ticaretin doğru adresi</title>
+
+	<!-- Font Icon -->
+	<link rel="stylesheet" href="~/regform/fonts/material-icon/css/material-design-iconic-font.min.css">
+
+	<!-- Main css -->
+	<link rel="stylesheet" href="~/regform/css/style.css">
+</head>
+<body>
+
+	<div class="main">
+
+		<!-- Sign up form -->
+		<section class="signup">
+			<div class="container">
+				<div class="signup-content">
+					<div class="signup-form">
+						<h2 class="form-title">Üye Ol</h2>
+						<form method="POST" class="register-form" id="register-form">
+
+							<div class="form-group">
+								<label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+								<input type="text" name="Name" id="name" placeholder="Adınız" />
+							</div>
+							<div class="form-group">
+								<label for="name"><i class="zmdi zmdi-account material-icons-surname"></i></label>
+								<input type="text" name="Surname" id="surname" placeholder="Soyadınız" />
+							</div>
+							<div class="form-group">
+								<label for="email"><i class="zmdi zmdi-email"></i></label>
+								<input type="email" name="Email" id="email" placeholder="E-mail adresiniz" />
+							</div>
+							<div class="form-group">
+								<label for="pass"><i class="zmdi zmdi-lock"></i></label>
+								<input type="password" name="Password" id="pass" placeholder="Şifre" />
+							</div>
+							<div class="form-group">
+								<label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
+								<input type="password" name="ConfirmPassword" id="re_pass" placeholder="Şifrenizi tekrar giriniz" />
+							</div>
+							<div class="form-group">
+								<input type="hidden" id="agree-term-hidden" name="AgreeTermHidden" value="false" />
+								<input type="checkbox" name="AgreeTerm" id="agree-term" value="true" />
+
+
+								<label for="agree-term" class="label-agree-term">
+									<span><span></span></span>
+									<a href="#" class="term-service">Hizmet sartlarını</a> okudum kabul ediyorum
+								</label>
+							</div>
+
+
+
+							<div class="form-group form-button">
+								<input type="submit" name="signup" id="signup" class="form-submit" value="Kayıt ol" />
+							</div>
+						</form>
+					</div>
+					<div class="signup-image">
+						<figure><img src="@Url.Content("~/cozastore-master/images/about-01.jpg")"></figure>
+						<a asp-action="Index" asp-controller="Login" class="signup-image-link">Zaten üyeyim</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+	</div>
+
+
+	@if (!string.IsNullOrEmpty(TempData["Error"] as string))
+	{
+		<script>
+			console.log(typeof Swal);
+
+
+			document.addEventListener("DOMContentLoaded", function () {
+				Swal.fire({
+					icon: 'warning',
+					title: 'Uyarı!',
+					text: '@Html.Raw(Json.Serialize(TempData["Error"]))',
+					confirmButtonColor: '#ffc107',
+					confirmButtonText: 'Tamam'
+				});
+			});
+		</script>
+	}
+
+	@if (!string.IsNullOrEmpty(TempData["Info"] as string))
+	{
+		<script>
+			console.log(typeof Swal);
+
+
+			document.addEventListener("DOMContentLoaded", function () {
+				Swal.fire({
+					icon: 'success',
+					title: 'Tebrikler!',
+					text: '@Html.Raw(Json.Serialize(TempData["Info"]))',
+					confirmButtonColor: '#ffc107',
+					confirmButtonText: 'Tamam'
+				});
+			});
+		</script>
+	}
+
+
+	<script> 
+		document.getElementById("register-form").addEventListener("submit", function (event) {
+			let checkbox = document.getElementById("agree-term");
+			let hiddenInput = document.getElementById("agree-term-hidden");
+
+			// Checkbox işaretliyse hidden input'u true yap
+			if (checkbox.checked) {
+				hiddenInput.value = "true";
+			} else {
+				hiddenInput.value = "false";
+			}
+
+			console.log("Checkbox işaretli mi?:", checkbox.checked);
+		});
+
+
+	</script>
+
+
+
+	<!-- JS -->
+	<script src="~/regform/vendor/jquery/jquery.min.js"></script>
+	<script src="~/regform/js/main.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>
+
