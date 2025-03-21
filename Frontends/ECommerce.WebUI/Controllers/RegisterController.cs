@@ -1,4 +1,5 @@
 ﻿using ECommerce.DtoLayer.IdentityDtos.RegisterDtos;
+using ECommerce.WebUI.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
@@ -59,7 +60,7 @@ namespace ECommerce.WebUI.Controllers
 
 			var userRegisterDto = new UserRegisterDto
 			{
-				Username = $"{createRegisterDto.Name}_{createRegisterDto.Surname}".ToLower(),
+				Username = UsernameHelper.NormalizeUsername(createRegisterDto.Name, createRegisterDto.Surname),
 				Email = createRegisterDto.Email,
 				Name = createRegisterDto.Name,
 				Surname = createRegisterDto.Surname,
@@ -73,7 +74,7 @@ namespace ECommerce.WebUI.Controllers
 			if (responseMessage.IsSuccessStatusCode)
 			{
 				TempData["Info"] = "Kayıt isleminiz basariyla gerceklesmistir.";
-				return RedirectToAction("Index", "Register"); //sonrasında logine yönlendirecegim
+				return RedirectToAction("Index", "Login"); 
 			}
 			else
 			{
@@ -81,5 +82,12 @@ namespace ECommerce.WebUI.Controllers
 				return View();
 			}
 		}
+
+
+
+
+
+
+
 	}
 }

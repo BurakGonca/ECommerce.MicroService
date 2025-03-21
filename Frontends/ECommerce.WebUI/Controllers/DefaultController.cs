@@ -6,6 +6,7 @@ namespace ECommerce.WebUI.Controllers
     {
         public IActionResult Index()
         {
+            
             return View();
         }
     }
