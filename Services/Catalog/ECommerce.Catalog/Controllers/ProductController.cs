@@ -75,5 +75,14 @@ namespace ECommerce.Catalog.Controllers
 		}
 
 
+		[HttpGet("GetProductBySearchTerm")]
+		public async Task<IActionResult> GetProductBySearchTerm(string searchTerm)
+		{
+			var values = await _productService.GetProductBySearchTerm(searchTerm);
+			return Ok(values);
+		}
+
+
+
 	}
 }

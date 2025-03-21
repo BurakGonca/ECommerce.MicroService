@@ -82,6 +82,25 @@
     }
 
 
+    @if (!string.IsNullOrEmpty(TempData["Logout"] as string))
+    {
+        <script>
+            console.log(typeof Swal);
+
+
+            document.addEventListener("DOMContentLoaded", function () {
+                Swal.fire({
+                    icon: 'success',
+                    title: '@Html.Raw(Json.Serialize(TempData["Logout"]))',
+                    text: '',
+                    confirmButtonColor: '#ffc107',
+                    confirmButtonText: 'Tamam'
+                });
+            });
+        </script>
+    }
+
+
     <!-- JS -->
     <script src="~/regform/vendor/jquery/jquery.min.js"></script>
     <script src="~/regform/js/main.js"></script>

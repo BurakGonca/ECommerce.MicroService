@@ -13,5 +13,8 @@ namespace ECommerce.Catalog.Services.ProductServices
 
         Task<List<ResultProductsWithCategoryDto>> GetProductsWithCategoryByCategoryIdAsync(string categoryId);
 
+
+		Task<List<ResultProductsWithCategoryDto>> GetProductBySearchTerm(string searchTerm);
+
 	}
 }

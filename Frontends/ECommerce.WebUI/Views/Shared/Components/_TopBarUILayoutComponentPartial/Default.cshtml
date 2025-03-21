@@ -14,30 +14,39 @@
 			</a>
 
 			<a href="#" class="flex-c-m trans-04 p-lr-25">
-				Kullanım Koşulları
-			</a>
-
-			<a href="#" class="flex-c-m trans-04 p-lr-25">
-				Sayfalar
+				Hizmet Şartları
 			</a>
 
 			<a asp-controller="Contact" asp-action="Index" class="flex-c-m trans-04 p-lr-25">
 				İletişim
 			</a>
 
-			<a asp-controller="Register" asp-action="Index" class="flex-c-m trans-04 p-lr-25">
-				@* login olunca isim gelecek *@
-				Üye Ol
-			</a>
 
-			<a asp-controller="Login" asp-action="Index" class="flex-c-m trans-04 p-lr-25">
-				Giriş Yap
-			</a>
+			@if (User.Identity.IsAuthenticated)
+			{
+				<a asp-controller="Logout" asp-action="Index" class="flex-c-m trans-04 p-lr-25">
+					Çıkış Yap
+				</a>
+
+				<a href="#" class="flex-c-m trans-04 p-lr-25">
+					@ViewBag.UserFullName
+				</a>
+				
+			}
+			else
+			{
+				<a asp-controller="Register" asp-action="Index" class="flex-c-m trans-04 p-lr-25">
+					Üye Ol
+				</a>
+
+				<a asp-controller="Login" asp-action="Index" class="flex-c-m trans-04 p-lr-25">
+					Giriş Yap
+				</a>
+			}
 
 		</div>
 	</div>
 </div>
 
 
-@* <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> *@
 

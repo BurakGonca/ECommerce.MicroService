@@ -63,7 +63,8 @@ namespace ECommerce.WebUI.Controllers
                         await HttpContext.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProps);
 
 
-                        var currentUserId = _loginService.GetUserId;
+                        //sonra acacagim deneme yapiyorum
+                        //var currentUserId = _loginService.GetUserId;
 
 
                         TempData["Info"] = "Giriş işlemi başarili";

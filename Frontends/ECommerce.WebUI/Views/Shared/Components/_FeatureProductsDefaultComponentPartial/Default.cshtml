@@ -52,11 +52,11 @@
 			<!-- Search product -->
 			<div class="dis-none panel-search w-full p-t-10 p-b-15">
 				<div class="bor8 dis-flex p-l-15">
-					<button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
+					<button id="search-btn" class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
 						<i class="zmdi zmdi-search"></i>
 					</button>
 
-					<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" placeholder="Search">
+					<input id="search-input" class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" placeholder="Arayın...">
 				</div>
 			</div>
 
@@ -313,3 +313,38 @@
 
 	</div>
 </section>
+
+
+
+<script>
+
+	document.addEventListener("DOMContentLoaded", function () {
+		const searchInput = document.getElementById("search-input");
+		const searchButton = document.getElementById("search-btn");
+
+		function performSearch() {
+			const searchTerm = searchInput.value.trim();
+			if (searchTerm.length >= 3) {
+				window.location.href = `/Search/GetProductBySearchTerm?searchTerm=${encodeURIComponent(searchTerm)}`;
+			} else {
+				alert("Lütfen en az 3 karakter giriniz.");
+			}
+		}
+
+		// Enter tuşuna basıldığında çalıştır
+		searchInput.addEventListener("keypress", function (event) {
+			if (event.key === "Enter") {
+				event.preventDefault(); // Sayfanın yeniden yüklenmesini önler
+				performSearch();
+			}
+		});
+
+		// Butona tıklanınca çalıştır
+		searchButton.addEventListener("click", function (event) {
+			event.preventDefault(); // Sayfanın yeniden yüklenmesini önler
+			performSearch();
+		});
+	});
+
+
+</script>

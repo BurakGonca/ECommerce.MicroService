@@ -36,11 +36,11 @@
 					<img src="~/cozastore-master/images/icons/icon-close2.png" alt="CLOSE">
 				</button>
 
-				<form class="wrap-search-header flex-w p-l-15">
+				<form class="wrap-search-header flex-w p-l-15" method="get" asp-controller="Search" asp-action="GetProductBySearchTerm">
 					<button class="flex-c-m trans-04">
 						<i class="zmdi zmdi-search"></i>
 					</button>
-					<input class="plh3" type="text" name="search" placeholder="Arayın...">
+					<input class="plh3" type="text" name="searchTerm" placeholder="Arayın...">
 				</form>
 			</div>
 		</div>

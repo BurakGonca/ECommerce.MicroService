@@ -1,90 +1,93 @@
 ﻿using AutoMapper;
+using ECommerce.Catalog.Dtos.CategoryDtos;
 using ECommerce.Catalog.Dtos.ProductDtos;
 using ECommerce.Catalog.Entities;
 using ECommerce.Catalog.Settings;
+using MongoDB.Bson;
 using MongoDB.Driver;
+using static MongoDB.Driver.WriteConcern;
 
 namespace ECommerce.Catalog.Services.ProductServices
 {
-    public class ProductService : IProductService
-    {
-        private readonly IMapper _mapper;
-        private readonly IMongoCollection<Product> _productCollection;
-        private readonly IMongoCollection<Category> _categoryCollection;
+	public class ProductService : IProductService
+	{
+		private readonly IMapper _mapper;
+		private readonly IMongoCollection<Product> _productCollection;
+		private readonly IMongoCollection<Category> _categoryCollection;
 
 
 
 		public ProductService(IMapper mapper, IDatabaseSettings _databaseSettings)
-        {
-            var client = new MongoClient(_databaseSettings.ConnectionString);
-            var database = client.GetDatabase(_databaseSettings.DatabaseName);
-            _productCollection = database.GetCollection<Product>(_databaseSettings.ProductCollectionName);
+		{
+			var client = new MongoClient(_databaseSettings.ConnectionString);
+			var database = client.GetDatabase(_databaseSettings.DatabaseName);
+			_productCollection = database.GetCollection<Product>(_databaseSettings.ProductCollectionName);
 			_categoryCollection = database.GetCollection<Category>(_databaseSettings.CategoryCollectionName);
 			_mapper = mapper;
-        }
+		}
 
 
-        public async Task CreateProductAsync(CreateProductDto createProductDto)
-        {
-            var value = _mapper.Map<Product>(createProductDto);
-            await _productCollection.InsertOneAsync(value);
-        }
+		public async Task CreateProductAsync(CreateProductDto createProductDto)
+		{
+			var value = _mapper.Map<Product>(createProductDto);
+			await _productCollection.InsertOneAsync(value);
+		}
 
-        public async Task DeleteProductAsync(string id)
-        {
-            await _productCollection.DeleteOneAsync(p=>p.ProductID == id);
-        }
+		public async Task DeleteProductAsync(string id)
+		{
+			await _productCollection.DeleteOneAsync(p => p.ProductID == id);
+		}
 
-        public async Task<List<ResultProductDto>> GetAllProductAsync()
-        {
-            var values = await _productCollection.Find(p=> true).ToListAsync();
-            return _mapper.Map<List<ResultProductDto>>(values);
-        }
+		public async Task<List<ResultProductDto>> GetAllProductAsync()
+		{
+			var values = await _productCollection.Find(p => true).ToListAsync();
+			return _mapper.Map<List<ResultProductDto>>(values);
+		}
 
-        /// <summary>
-        /// Kategorisi ile birlikte getirir.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public async Task<GetByIdProductDto> GetByIdProductAsync(string id)
-        {
-            var value = await _productCollection.Find<Product>(p=>p.ProductID == id).FirstOrDefaultAsync();
-            value.Category = await _categoryCollection.Find<Category>(c => c.CategoryID == value.CategoryId).FirstAsync();
+		/// <summary>
+		/// Kategorisi ile birlikte getirir.
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		public async Task<GetByIdProductDto> GetByIdProductAsync(string id)
+		{
+			var value = await _productCollection.Find<Product>(p => p.ProductID == id).FirstOrDefaultAsync();
+			value.Category = await _categoryCollection.Find<Category>(c => c.CategoryID == value.CategoryId).FirstAsync();
 			return _mapper.Map<GetByIdProductDto>(value);
-        }
+		}
 
 
 		public async Task UpdateProductAsync(UpdateProductDto updateProductDto)
-        {
-            var value = _mapper.Map<Product>(updateProductDto);
-            await _productCollection.FindOneAndReplaceAsync(p => p.ProductID == updateProductDto.ProductID, value);
-        }
+		{
+			var value = _mapper.Map<Product>(updateProductDto);
+			await _productCollection.FindOneAndReplaceAsync(p => p.ProductID == updateProductDto.ProductID, value);
+		}
 
-        /// <summary>
-        /// Ürünleri kategoriyle birliklte getirme methodudur.
-        /// </summary>
-        /// <returns></returns>
+		/// <summary>
+		/// Ürünleri kategoriyle birliklte getirme methodudur.
+		/// </summary>
+		/// <returns></returns>
 		public async Task<List<ResultProductsWithCategoryDto>> GetProductsWithCategoryAsync()
 		{
-			var values = await _productCollection.Find(p=>true).ToListAsync();
-            foreach (var item in values)
-            {
-                item.Category = await _categoryCollection.Find<Category>(c=>c.CategoryID==item.CategoryId).FirstAsync();
-            }
+			var values = await _productCollection.Find(p => true).ToListAsync();
+			foreach (var item in values)
+			{
+				item.Category = await _categoryCollection.Find<Category>(c => c.CategoryID == item.CategoryId).FirstAsync();
+			}
 
-            return _mapper.Map<List<ResultProductsWithCategoryDto>>(values);
+			return _mapper.Map<List<ResultProductsWithCategoryDto>>(values);
 
 		}
 
-        /// <summary>
-        /// Ürünleri kategoriye göre filtre ederek getiren methoddur.
-        /// </summary>
-        /// <param name="categoryId"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
+		/// <summary>
+		/// Ürünleri kategoriye göre filtre ederek getiren methoddur.
+		/// </summary>
+		/// <param name="categoryId"></param>
+		/// <returns></returns>
+		/// <exception cref="NotImplementedException"></exception>
 		public async Task<List<ResultProductsWithCategoryDto>> GetProductsWithCategoryByCategoryIdAsync(string categoryId)
 		{
-			var values = await _productCollection.Find(p => p.CategoryId==categoryId).ToListAsync();
+			var values = await _productCollection.Find(p => p.CategoryId == categoryId).ToListAsync();
 			foreach (var item in values)
 			{
 				item.Category = await _categoryCollection.Find<Category>(c => c.CategoryID == item.CategoryId).FirstAsync();
@@ -93,6 +96,30 @@ namespace ECommerce.Catalog.Services.ProductServices
 			return _mapper.Map<List<ResultProductsWithCategoryDto>>(values);
 		}
 
+		/// <summary>
+		/// Gelen arama terimine göre ürünleri listeleyen methoddur.
+		/// </summary>
+		/// <returns></returns>
+		/// <exception cref="NotImplementedException"></exception>
+		public async Task<List<ResultProductsWithCategoryDto>> GetProductBySearchTerm(string searchTerm)
+		{
+			if (searchTerm.Length < 3)
+				return new List<ResultProductsWithCategoryDto>();
+
+
+			var filter = Builders<Product>.Filter.Regex(p => p.ProductName, new BsonRegularExpression(searchTerm, "i"));  // 'i' küçük/büyük harf duyarsız arama yapar
+
+			var values = await _productCollection.Find(filter).ToListAsync();
+
+			foreach (var item in values)
+			{
+				item.Category = await _categoryCollection.Find<Category>(c => c.CategoryID == item.CategoryId).FirstAsync();
+			}
+
+			return _mapper.Map<List<ResultProductsWithCategoryDto>>(values);
+
+
+		}
 
 
 	}

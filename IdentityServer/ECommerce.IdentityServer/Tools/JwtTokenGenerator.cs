@@ -20,7 +20,10 @@ namespace ECommerce.IdentityServer.Tools
             if (!string.IsNullOrWhiteSpace(model.UserName))
                 claims.Add(new Claim("Username", model.UserName));
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtTokenDefault.Key));
+			if (!string.IsNullOrWhiteSpace(model.FullName))
+				claims.Add(new Claim(ClaimTypes.Name, model.FullName));
+
+			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtTokenDefault.Key));
 
             var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
