@@ -36,6 +36,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Requirements", "Requirements", "{D5437A28-3D43-4C1D-BDE5-DDE99F6D512C}"
 	ProjectSection(SolutionItems) = preProject
 		PortNumbers.txt = PortNumbers.txt
+		ShowTokensInUI.txt = ShowTokensInUI.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cargo", "Cargo", "{985F4FB0-1F87-4A12-8ADE-122A37C49656}"
@@ -62,7 +63,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECommerce.DtoLayer", "Front
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Comment", "Comment", "{BD122246-DCDF-4524-9125-4FD54CCE5589}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce.Comment", "Services\Comment\ECommerce.Comment\ECommerce.Comment.csproj", "{23E80BF3-2C84-47D6-84F6-40CE78022D4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECommerce.Comment", "Services\Comment\ECommerce.Comment\ECommerce.Comment.csproj", "{23E80BF3-2C84-47D6-84F6-40CE78022D4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

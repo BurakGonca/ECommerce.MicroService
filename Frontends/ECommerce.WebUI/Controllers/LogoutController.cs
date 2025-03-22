@@ -10,7 +10,7 @@ namespace ECommerce.WebUI.Controllers
 		{
 			await HttpContext.SignOutAsync();
 			TempData["Logout"] = "Cikis Yapilmistir";
-			return RedirectToAction("Index", "Login");
+			return RedirectToAction("SignIn", "Login");
 		}
 	}
 }

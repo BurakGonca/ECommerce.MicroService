@@ -1,6 +1,8 @@
 ﻿using ECommerce.DtoLayer.CatalogDtos.FeatureSliderDtos;
+using ECommerce.WebUI.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace ECommerce.WebUI.ViewComponents.DefaultViewComponents
 {
@@ -19,7 +21,12 @@ namespace ECommerce.WebUI.ViewComponents.DefaultViewComponents
 
 		public async Task<IViewComponentResult> InvokeAsync()
 		{
+			string token = await TokenHelper.GetAccessTokenAsync();
+
 			var client = _httpClientFactory.CreateClient();
+
+			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
 			var responseMessage = await client.GetAsync("https://localhost:7081/api/FeatureSliders");
 			if (responseMessage.IsSuccessStatusCode)
 			{

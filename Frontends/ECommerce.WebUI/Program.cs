@@ -1,10 +1,14 @@
 using ECommerce.WebUI.Services;
+using ECommerce.WebUI.Services.Abstract;
+using ECommerce.WebUI.Services.Concrete;
+using ECommerce.WebUI.Settings;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-//Authentication,Token,Cookie konfigürsayonlarý
+//JWT Authentication konfigürsayonu
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddCookie(JwtBearerDefaults.AuthenticationScheme, opt =>
 {
     opt.LoginPath = "/Login/Index/";
@@ -16,10 +20,25 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddCo
     opt.Cookie.Name = "ECommerceJwt";
 });
 
+
+//Cookie Authentication konfigürsayonu
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opt =>
+{
+	opt.LoginPath = "/Login/Index/";
+	opt.ExpireTimeSpan = TimeSpan.FromDays(5); //5gün boyunca gecerli olacak cookie
+    opt.Cookie.Name = "ECommerceCookie";
+    opt.SlidingExpiration = true;
+
+});
+
+
+
 builder.Services.AddHttpContextAccessor();
 
-//LoginService konfigürasyonu
+
+//Service konfigürasyonlarý
 builder.Services.AddScoped<ILoginService, LoginService>();
+builder.Services.AddScoped<IIdentityService, IdentityService>();
 
 
 
@@ -27,6 +46,11 @@ builder.Services.AddHttpClient();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//appsetting.json'daki ClientSettings konfigürasyonu
+builder.Services.Configure<ClientSettings>(builder.Configuration.GetSection("ClientSettings"));
+
+
 
 var app = builder.Build();
 

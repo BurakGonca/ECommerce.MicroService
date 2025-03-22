@@ -1,6 +1,8 @@
 ﻿using ECommerce.DtoLayer.CatalogDtos.ProductDtos;
+using ECommerce.WebUI.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace ECommerce.WebUI.Controllers
 {
@@ -15,7 +17,12 @@ namespace ECommerce.WebUI.Controllers
 
 		public async Task<IActionResult> Index()
 		{
+			string token = await TokenHelper.GetAccessTokenAsync();
+
 			var client = _httpClientFactory.CreateClient();
+
+			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
 			var responseMessage = await client.GetAsync("https://localhost:7081/api/Product/ProductListWithCategory");
 
 
@@ -30,8 +37,13 @@ namespace ECommerce.WebUI.Controllers
 
 		public async Task<IActionResult> ProductsByCategoryId(string categoryId)
 		{
-			//categoryId = "67c6f81c015645d280ba7cbb";
+			
+			string token = await TokenHelper.GetAccessTokenAsync();
+
 			var client = _httpClientFactory.CreateClient();
+
+			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
 			var responseMessage = await client.GetAsync($"https://localhost:7081/api/Product/GetProductsWithCategoryByCategoryId?categoryId={categoryId}");
 
 			if (responseMessage.IsSuccessStatusCode)

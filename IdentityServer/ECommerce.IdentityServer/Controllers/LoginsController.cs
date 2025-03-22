@@ -54,5 +54,26 @@ namespace ECommerce.IdentityServer.Controllers
             
         }
 
-    }
+
+
+		[HttpGet("FindUserName")]
+		public async Task<IActionResult> FindUserName(string email)
+		{
+			ApplicationUser currentUser = await _userManager.FindByEmailAsync(email);
+
+			if (currentUser is null)
+				return BadRequest("Kullanıcı adı hatalıdır.");
+
+			return Ok(currentUser.UserName);  
+		}
+
+
+
+
+
+
+
+
+
+	}
 }

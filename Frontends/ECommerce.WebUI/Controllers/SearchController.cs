@@ -1,6 +1,8 @@
 ﻿using ECommerce.DtoLayer.CatalogDtos.ProductDtos;
+using ECommerce.WebUI.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace ECommerce.WebUI.Controllers
 {
@@ -19,7 +21,12 @@ namespace ECommerce.WebUI.Controllers
 		{
 			var url = $"https://localhost:7081/api/Product/GetProductBySearchTerm?searchTerm={searchTerm}";
 
+			string token = await TokenHelper.GetAccessTokenAsync();
+
 			var client = _httpClientFactory.CreateClient();
+
+			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
 			var responseMessage = await client.GetAsync(url);
 			if (responseMessage.IsSuccessStatusCode)
 			{

@@ -2,26 +2,32 @@
 using ECommerce.WebUI.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Net.Http.Headers;
 
-namespace ECommerce.WebUI.ViewComponents.UILayoutViewComponents
+
+namespace ECommerce.WebUI.Controllers
 {
-	public class _NavBarUILayoutComponentPartial : ViewComponent
+	public class TestController : Controller
 	{
 		private readonly IHttpClientFactory _httpClientFactory;
 
-		public _NavBarUILayoutComponentPartial(IHttpClientFactory httpClientFactory)
+		public TestController(IHttpClientFactory httpClientFactory)
 		{
 			_httpClientFactory = httpClientFactory;
 		}
 
-		public async Task<IViewComponentResult> InvokeAsync()
+		
+		
+		public async Task<IActionResult> Index()
 		{
+
 			string token = await TokenHelper.GetAccessTokenAsync();
 
 			var client = _httpClientFactory.CreateClient();
 
-			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+			//token çözümlemesi
+			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",token);
 
 			var responseMessage = await client.GetAsync("https://localhost:7081/api/Categories");
 			if (responseMessage.IsSuccessStatusCode)
@@ -32,5 +38,8 @@ namespace ECommerce.WebUI.ViewComponents.UILayoutViewComponents
 			}
 			return View();
 		}
+
+
+
 	}
 }

@@ -1,6 +1,8 @@
 ﻿using ECommerce.DtoLayer.CatalogDtos.BrandDtos;
+using ECommerce.WebUI.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace ECommerce.WebUI.ViewComponents.DefaultViewComponents
 {
@@ -19,8 +21,13 @@ namespace ECommerce.WebUI.ViewComponents.DefaultViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7081/api/Brands");
+			string token = await TokenHelper.GetAccessTokenAsync();
+
+			var client = _httpClientFactory.CreateClient();
+
+			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+			var responseMessage = await client.GetAsync("https://localhost:7081/api/Brands");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();

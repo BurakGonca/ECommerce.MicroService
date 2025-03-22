@@ -1,10 +1,14 @@
 ﻿using ECommerce.DtoLayer.IdentityDtos.LoginDtos;
+using ECommerce.WebUI.Helpers;
 using ECommerce.WebUI.Models;
 using ECommerce.WebUI.Services;
+using ECommerce.WebUI.Services.Abstract;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
@@ -16,67 +20,112 @@ namespace ECommerce.WebUI.Controllers
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILoginService _loginService;
 
-        public LoginController(IHttpClientFactory httpClientFactory, ILoginService loginService)
-        {
-            _httpClientFactory = httpClientFactory;
-            _loginService = loginService;
-        }
+        private readonly IIdentityService _identityService;
+
+		public LoginController(IHttpClientFactory httpClientFactory, ILoginService loginService, IIdentityService identityService)
+		{
+			_httpClientFactory = httpClientFactory;
+			_loginService = loginService;
+			_identityService = identityService;
+		}
+
+		//[HttpGet]
+  //      public IActionResult Index()
+  //      {
+  //          return View();
+  //      }
+
+
+  //      [HttpPost]
+  //      public async Task<IActionResult> Index(CreateLoginDto createLoginDto)
+  //      {
+  //          var client = _httpClientFactory.CreateClient();
+  //          var content = new StringContent(JsonSerializer.Serialize(createLoginDto), Encoding.UTF8, "application/json");
+  //          var response = await client.PostAsync("http://localhost:5001/api/Logins", content);
+
+  //          if (response.IsSuccessStatusCode)
+  //          {
+  //              var jsonData = await response.Content.ReadAsStringAsync();
+  //              var tokenModel = JsonSerializer.Deserialize<JwtResponseModel>(jsonData, new JsonSerializerOptions
+  //              {
+  //                  PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+  //              });
+
+  //              if (tokenModel is not null)
+  //              {
+  //                  JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+  //                  var token = handler.ReadJwtToken(tokenModel.Token);
+  //                  var claims = token.Claims.ToList();
+
+  //                  if (tokenModel.Token is not null)
+  //                  {
+  //                      claims.Add(new Claim("ecommercetoken", tokenModel.Token));
+  //                      var claimsIdentity = new ClaimsIdentity(claims, JwtBearerDefaults.AuthenticationScheme);
+  //                      var authProps = new AuthenticationProperties()
+  //                      {
+  //                          ExpiresUtc = tokenModel.ExpireDate,
+  //                          IsPersistent = true
+  //                      };
+
+  //                      await HttpContext.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProps);
+
+
+  //                      //sonra acacagim deneme yapiyorum
+  //                      //var currentUserId = _loginService.GetUserId;
+
+
+  //                      TempData["Info"] = "Giriş işlemi başarili";
+  //                      return RedirectToAction("Index","Default");
+  //                  }
+  //              }
+
+
+  //          }
+
+  //          TempData["Error"] = "Bir hata olustu,tekrar deneyiniz";
+  //          return View();
+  //      }
+
+
+
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult SignIn()
         {
             return View();
         }
-
 
         [HttpPost]
-        public async Task<IActionResult> Index(CreateLoginDto createLoginDto)
-        {
-            var client = _httpClientFactory.CreateClient();
-            var content = new StringContent(JsonSerializer.Serialize(createLoginDto), Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("http://localhost:5001/api/Logins", content);
+        public async Task<IActionResult> SignIn(CreateLoginDto createLoginDto)
+		{
+            SignInDto signInDto = new SignInDto();
 
-            if (response.IsSuccessStatusCode)
-            {
-                var jsonData = await response.Content.ReadAsStringAsync();
-                var tokenModel = JsonSerializer.Deserialize<JwtResponseModel>(jsonData, new JsonSerializerOptions
-                {
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-                });
+			var client = _httpClientFactory.CreateClient();
 
-                if (tokenModel is not null)
-                {
-                    JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
-                    var token = handler.ReadJwtToken(tokenModel.Token);
-                    var claims = token.Claims.ToList();
+			var url = $"http://localhost:5001/api/Logins/FindUserName?email={createLoginDto.Email}";
 
-                    if (tokenModel.Token is not null)
-                    {
-                        claims.Add(new Claim("ecommercetoken", tokenModel.Token));
-                        var claimsIdentity = new ClaimsIdentity(claims, JwtBearerDefaults.AuthenticationScheme);
-                        var authProps = new AuthenticationProperties()
-                        {
-                            ExpiresUtc = tokenModel.ExpireDate,
-                            IsPersistent = true
-                        };
+			var response = await client.GetAsync(url);
 
-                        await HttpContext.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProps);
+			if (response.IsSuccessStatusCode)
+			{
+				var jsonData = await response.Content.ReadAsStringAsync();
+
+				string contentUserName = jsonData;
+
+				signInDto.Password=createLoginDto.Password;
+				signInDto.UserName = contentUserName;
+			}
 
 
-                        //sonra acacagim deneme yapiyorum
-                        //var currentUserId = _loginService.GetUserId;
+			await _identityService.SignIn(signInDto);
+
+			TempData["Info"] = "Giriş işlemi başarili";
+			return RedirectToAction("Index", "Default");
+		}
 
 
-                        TempData["Info"] = "Giriş işlemi başarili";
-                        return RedirectToAction("Index","Default");
-                    }
-                }
 
 
-            }
 
-            TempData["Error"] = "Bir hata olustu,tekrar deneyiniz";
-            return View();
-        }
-    }
+	}
 }

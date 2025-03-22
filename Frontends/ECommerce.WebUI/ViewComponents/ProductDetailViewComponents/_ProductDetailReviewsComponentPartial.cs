@@ -1,6 +1,8 @@
 ﻿using ECommerce.DtoLayer.CommentDtos.UserCommentDtos;
+using ECommerce.WebUI.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace ECommerce.WebUI.ViewComponents.ProductDetailViewComponents
 {
@@ -17,7 +19,12 @@ namespace ECommerce.WebUI.ViewComponents.ProductDetailViewComponents
 		public async Task<IViewComponentResult> InvokeAsync(string id)
 		{
 			ViewBag.Id = id;
+			string token = await TokenHelper.GetAccessTokenAsync();
+
 			var client = _httpClientFactory.CreateClient();
+
+			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
 			var responseMessage = await client.GetAsync($"https://localhost:7141/api/Comments/CommentListByProductId?id={id}");
 			if (responseMessage.IsSuccessStatusCode)
 			{

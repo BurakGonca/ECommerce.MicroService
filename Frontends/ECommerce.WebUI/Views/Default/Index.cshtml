@@ -27,9 +27,28 @@
 
 
 
+@if (!string.IsNullOrEmpty(TempData["Info"] as string))
+{
+    <script>
+        console.log(typeof Swal);
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            Swal.fire({
+                icon: 'success',
+                title: 'Tebrikler!',
+                text: '@Html.Raw(Json.Serialize(TempData["Info"]))',
+                confirmButtonColor: '#ffc107',
+                confirmButtonText: 'Tamam'
+            });
+        });
+    </script>
+}
 
 
 
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 
