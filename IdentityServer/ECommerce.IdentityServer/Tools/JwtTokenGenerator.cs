@@ -18,12 +18,12 @@ namespace ECommerce.IdentityServer.Tools
             claims.Add(new Claim(ClaimTypes.NameIdentifier, model.Id));
 
             if (!string.IsNullOrWhiteSpace(model.UserName))
+            {
                 claims.Add(new Claim("Username", model.UserName));
+                claims.Add(new Claim(ClaimTypes.Name, model.UserName)); 
+            }
 
-			if (!string.IsNullOrWhiteSpace(model.FullName))
-				claims.Add(new Claim(ClaimTypes.Name, model.FullName));
-
-			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtTokenDefault.Key));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtTokenDefault.Key));
 
             var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 

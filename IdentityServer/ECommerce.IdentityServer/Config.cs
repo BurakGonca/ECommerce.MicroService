@@ -41,6 +41,26 @@ namespace ECommerce.IdentityServer
                 Scopes= {"BasketFullPermission"}
             },
 
+            new ApiResource("ResourceComment")
+            {
+                Scopes= { "CommentFullPermission" }
+            },
+
+            new ApiResource("ResourcePayment")
+            {
+                Scopes= { "PaymentFullPermission" }
+            },
+
+            new ApiResource("ResourceImages")
+            {
+                Scopes= { "ImagesFullPermission" }
+            },
+
+            new ApiResource("ResourceOcelot")
+            {
+                Scopes= { "OcelotFullPermission" }
+            },
+
             new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
 
 
@@ -61,6 +81,10 @@ namespace ECommerce.IdentityServer
             new ApiScope("OrderFullPermission","Full Authority For Order Operations"),
             new ApiScope("CargoFullPermission","Full Authority For Cargo Operations"),
             new ApiScope("BasketFullPermission","Full Authority For Basket Operations"),
+            new ApiScope("CommentFullPermission","Full Authority For Comment Operations"),
+            new ApiScope("PaymentFullPermission","Full Authority For Payment Operations"),
+            new ApiScope("ImagesFullPermission","Full Authority For Images Operations"),
+            new ApiScope("OcelotFullPermission","Full Authority For Ocelot Operations"),
             new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
 
         };
@@ -75,7 +99,7 @@ namespace ECommerce.IdentityServer
                 ClientName="E-Commerce Visitor User",
                 AllowedGrantTypes = GrantTypes.ClientCredentials,
                 ClientSecrets = {new Secret("ecommercesecret".Sha256())},
-                AllowedScopes = { "CatalogReadPermission" }
+                AllowedScopes = { "CatalogReadPermission", "OcelotFullPermission", "CommentFullPermission" , "PaymentFullPermission" , "ImagesFullPermission" }
             },
 
             //Manager kullanicisi icin
@@ -85,7 +109,7 @@ namespace ECommerce.IdentityServer
                 ClientName="E-Commerce Manager User",
                 AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                 ClientSecrets = {new Secret("ecommercesecret".Sha256())},
-                AllowedScopes = {"CatalogReadPermission", "CatalogFullPermission" , "BasketFullPermission" }
+                AllowedScopes = {"CatalogReadPermission", "CatalogFullPermission" , "BasketFullPermission", "OcelotFullPermission" , "CommentFullPermission" , "PaymentFullPermission" , "ImagesFullPermission" }
             },
 
             //Admin kullanicisi icin
@@ -95,7 +119,7 @@ namespace ECommerce.IdentityServer
                 ClientName="E-Commerce Admin User",
                 AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                 ClientSecrets = {new Secret("ecommercesecret".Sha256())},
-                AllowedScopes = {"CatalogReadPermission", "CatalogFullPermission", "DiscountFullPermission", "OrderFullPermission","CargoFullPermission","BasketFullPermission",
+                AllowedScopes = {"CatalogReadPermission", "CatalogFullPermission", "DiscountFullPermission", "OrderFullPermission","CargoFullPermission","BasketFullPermission","OcelotFullPermission" , "CommentFullPermission","PaymentFullPermission" , "ImagesFullPermission" ,
 
                     IdentityServerConstants.LocalApi.ScopeName,
                     IdentityServerConstants.StandardScopes.Email,

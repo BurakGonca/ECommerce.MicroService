@@ -24,15 +24,15 @@ namespace ECommerce.WebUI.Controllers
 		[HttpPost]
 		public async Task<IActionResult> AddMessage(CreateContactDto createContactDto)
 		{
-			string token = await TokenHelper.GetAccessTokenAsync();
+			//string token = await TokenHelper.GetAccessTokenAsync();
 
 			var client = _httpClientFactory.CreateClient();
 
-			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+			//client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
 			var jsonData = JsonConvert.SerializeObject(createContactDto);
 			StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync("https://localhost:7081/api/Contacts", stringContent);
+			var responseMessage = await client.PostAsync("http://localhost:7081/api/Contacts", stringContent);
 			if (responseMessage.IsSuccessStatusCode)
 				TempData["SuccessMessage"] = "Mesajınız başarıyla iletilmiştir.";
 			else

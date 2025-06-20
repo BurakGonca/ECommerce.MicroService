@@ -19,13 +19,13 @@ namespace ECommerce.WebUI.Controllers
 		[HttpGet]
 		public async Task<IActionResult> GetProductBySearchTerm(string searchTerm)
 		{
-			var url = $"https://localhost:7081/api/Product/GetProductBySearchTerm?searchTerm={searchTerm}";
+			var url = $"http://localhost:7081/api/Product/GetProductBySearchTerm?searchTerm={searchTerm}";
 
-			string token = await TokenHelper.GetAccessTokenAsync();
+			//string token = await TokenHelper.GetAccessTokenAsync();
 
 			var client = _httpClientFactory.CreateClient();
 
-			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+			//client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
 			var responseMessage = await client.GetAsync(url);
 			if (responseMessage.IsSuccessStatusCode)

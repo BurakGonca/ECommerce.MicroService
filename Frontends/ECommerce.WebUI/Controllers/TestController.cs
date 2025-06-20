@@ -22,14 +22,14 @@ namespace ECommerce.WebUI.Controllers
 		public async Task<IActionResult> Index()
 		{
 
-			string token = await TokenHelper.GetAccessTokenAsync();
+			//string token = await TokenHelper.GetAccessTokenAsync();
 
 			var client = _httpClientFactory.CreateClient();
 
 			//token çözümlemesi
-			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",token);
+			//client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",token);
 
-			var responseMessage = await client.GetAsync("https://localhost:7081/api/Categories");
+			var responseMessage = await client.GetAsync("http://localhost:7081/api/Categories");
 			if (responseMessage.IsSuccessStatusCode)
 			{
 				var jsonData = await responseMessage.Content.ReadAsStringAsync();

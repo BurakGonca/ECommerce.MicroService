@@ -28,7 +28,7 @@ namespace ECommerce.WebUI.Areas.Admin.Controllers
 			ViewBag.v0 = "Kategori İşlemleri";
 
 			var client = _httpClientFactory.CreateClient();
-			var responseMessage = await client.GetAsync("https://localhost:7081/api/Categories");
+			var responseMessage = await client.GetAsync("http://localhost:7081/api/Categories");
 			if (responseMessage.IsSuccessStatusCode)
 			{
 				var jsonData = await responseMessage.Content.ReadAsStringAsync();
@@ -56,7 +56,7 @@ namespace ECommerce.WebUI.Areas.Admin.Controllers
 			var client = _httpClientFactory.CreateClient();
 			var jsonData = JsonConvert.SerializeObject(createCategoryDto);
 			StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync("https://localhost:7081/api/Categories", stringContent);
+			var responseMessage = await client.PostAsync("http://localhost:7081/api/Categories", stringContent);
 			if (responseMessage.IsSuccessStatusCode)
 				return RedirectToAction("Index", "Category", new { area = "Admin" });
 			return View();
@@ -66,7 +66,7 @@ namespace ECommerce.WebUI.Areas.Admin.Controllers
 		public async Task<IActionResult> DeleteCategory(string id)
 		{
 			var client = _httpClientFactory.CreateClient();
-			var responseMessage = await client.DeleteAsync($"https://localhost:7081/api/Categories?id={id}");
+			var responseMessage = await client.DeleteAsync($"http://localhost:7081/api/Categories?id={id}");
 			if (responseMessage.IsSuccessStatusCode)
 				return RedirectToAction("Index", "Category", new { area = "Admin" });
 			return View();
@@ -84,7 +84,7 @@ namespace ECommerce.WebUI.Areas.Admin.Controllers
 			ViewBag.v0 = "Kategori İşlemleri";
 
 			var client = _httpClientFactory.CreateClient();
-			var responseMessage = await client.GetAsync($"https://localhost:7081/api/Categories/{id}");
+			var responseMessage = await client.GetAsync($"http://localhost:7081/api/Categories/{id}");
 			if (responseMessage.IsSuccessStatusCode)
 			{
 				var jsonData = await responseMessage.Content.ReadAsStringAsync();
@@ -104,7 +104,7 @@ namespace ECommerce.WebUI.Areas.Admin.Controllers
 			var client = _httpClientFactory.CreateClient();
 			var jsonData = JsonConvert.SerializeObject(updateCategoryDto);
 			StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-			var responseMessage = await client.PutAsync("https://localhost:7081/api/Categories/",stringContent);
+			var responseMessage = await client.PutAsync("http://localhost:7081/api/Categories/",stringContent);
 			if (responseMessage.IsSuccessStatusCode)
 				return RedirectToAction("Index", "Category", new { area = "Admin" });
 			return View();

@@ -43,7 +43,7 @@ namespace ECommerce.IdentityServer.Controllers
                 GetCheckAppUserViewModel model = new GetCheckAppUserViewModel();
                 model.UserName = userLoginDto.Username;
                 model.Id = currentUser.Id;
-                model.FullName = $"{currentUser.Name} {currentUser.Surname}";
+                
                 
                 var token = JwtTokenGenerator.GenerateToken(model);
                 return Ok(token);

@@ -14,7 +14,7 @@
             "dotnetRunMessages": true,
             "launchBrowser": false, //uygulama ayaga kalkacak ama tarayıcıda acilmayacak
             "launchUrl": "swagger",
-            "applicationUrl": "https://localhost:7081",
+            "applicationUrl": "http://localhost:7081",
             "environmentVariables": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             }

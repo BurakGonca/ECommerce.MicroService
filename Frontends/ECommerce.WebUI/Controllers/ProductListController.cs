@@ -17,13 +17,13 @@ namespace ECommerce.WebUI.Controllers
 
 		public async Task<IActionResult> Index()
 		{
-			string token = await TokenHelper.GetAccessTokenAsync();
+			//string token = await TokenHelper.GetAccessTokenAsync();
 
 			var client = _httpClientFactory.CreateClient();
 
-			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+			//client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-			var responseMessage = await client.GetAsync("https://localhost:7081/api/Product/ProductListWithCategory");
+			var responseMessage = await client.GetAsync("http://localhost:7081/api/Product/ProductListWithCategory");
 
 
 			if (responseMessage.IsSuccessStatusCode)
@@ -38,13 +38,13 @@ namespace ECommerce.WebUI.Controllers
 		public async Task<IActionResult> ProductsByCategoryId(string categoryId)
 		{
 			
-			string token = await TokenHelper.GetAccessTokenAsync();
+			//string token = await TokenHelper.GetAccessTokenAsync();
 
 			var client = _httpClientFactory.CreateClient();
 
-			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+			//client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-			var responseMessage = await client.GetAsync($"https://localhost:7081/api/Product/GetProductsWithCategoryByCategoryId?categoryId={categoryId}");
+			var responseMessage = await client.GetAsync($"http://localhost:7081/api/Product/GetProductsWithCategoryByCategoryId?categoryId={categoryId}");
 
 			if (responseMessage.IsSuccessStatusCode)
 			{

@@ -27,13 +27,13 @@ namespace ECommerce.WebUI.ViewComponents.ProductDetailViewComponents
 
 		private async Task<ResultProductWithCategoryDto> GetProductByIdAsync(string productId)
 		{
-			string token = await TokenHelper.GetAccessTokenAsync();
+			//string token = await TokenHelper.GetAccessTokenAsync();
 
 			var client = _httpClientFactory.CreateClient();
 
-			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+			//client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-			var response = await client.GetAsync($"https://localhost:7081/api/Product/{productId}");
+			var response = await client.GetAsync($"http://localhost:7081/api/Product/{productId}");
 
 			if (!response.IsSuccessStatusCode)
 				return null;
@@ -44,13 +44,13 @@ namespace ECommerce.WebUI.ViewComponents.ProductDetailViewComponents
 
 		private async Task<List<ResultProductWithCategoryDto>> GetProductsByCategoryIdAsync(string categoryId)
 		{
-			string token = await TokenHelper.GetAccessTokenAsync();
+			//string token = await TokenHelper.GetAccessTokenAsync();
 
 			var client = _httpClientFactory.CreateClient();
 
-			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+			//client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-			var response = await client.GetAsync($"https://localhost:7081/api/Product/GetProductsWithCategoryByCategoryId?categoryId={categoryId}");
+			var response = await client.GetAsync($"http://localhost:7081/api/Product/GetProductsWithCategoryByCategoryId?categoryId={categoryId}");
 
 			if (!response.IsSuccessStatusCode)
 				return null;

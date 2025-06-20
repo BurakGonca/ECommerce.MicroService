@@ -74,7 +74,7 @@ namespace ECommerce.WebUI.Controllers
 			if (responseMessage.IsSuccessStatusCode)
 			{
 				TempData["Info"] = "Kayıt isleminiz basariyla gerceklesmistir.";
-				return RedirectToAction("Index", "Login"); 
+				return RedirectToAction("SignIn", "Login"); 
 			}
 			else
 			{

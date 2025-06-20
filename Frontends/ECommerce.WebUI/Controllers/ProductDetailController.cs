@@ -40,15 +40,15 @@ namespace ECommerce.WebUI.Controllers
 
 			//imageUrl login olduktan sonra user'dan gelecek hatta nameSurname de oradan gelecek.
 
-			string token = await TokenHelper.GetAccessTokenAsync();
+			//string token = await TokenHelper.GetAccessTokenAsync();
 
 			var client = _httpClientFactory.CreateClient();
 
-			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+			//client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
 			var jsonData = JsonConvert.SerializeObject(createCommentDto);
 			StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-			var responseMessage = await client.PostAsync("https://localhost:7141/api/Comments", stringContent);
+			var responseMessage = await client.PostAsync("http://localhost:7075/api/Comments", stringContent);
 			if (responseMessage.IsSuccessStatusCode)
 				return RedirectToAction("Index", "ProductDetail", new { id = createCommentDto.ProductId });
 
